@@ -1,0 +1,65 @@
+<h1 style="align-content: center">Void Management Details</h1>
+           <form class="container">
+             <table style="margin-bottom:20px">
+               <tr>
+                 <td> <label for="oid">Owner ID:</label><input type="text" placeholder="Owner ID" [(ngModel)]="model.id" id="uid" name="uid"></td>
+                 <td>
+                   <label for="name">Name:</label><input type="text" placeholder="Owner Name" [(ngModel)]="model.name" id="name" name="name">
+                 </td>
+                 <td> <label for="location">Location:</label><input type="text" placeholder="Location" [(ngModel)]="model.location" id="name" name="name">
+                 </td>
+                 <td><label for="vtype">Void Type:</label><input type="text" placeholder="Void Type" [(ngModel)]="model.void_type" id="name" name="name">
+                 </td>
+               </tr>
+                <tr>
+                 <td><label for="name">void start date:</label>
+                <kendo-datepicker  [(ngModel)]="model.void_start_date" id="voidstatedate" name="voidstatedate" [format]="'dd-MM-yyyy'"></kendo-datepicker> 
+                </td>
+                 <td><label for="name">void end date:</label>
+                  <kendo-datepicker  [(ngModel)]="model.void_end_date" id="voidenddate" name="voidenddate" [format]="'dd-MM-yyyy'"></kendo-datepicker> 
+                 </td>
+                 <td><label for="name">void type start date:</label>
+                  <kendo-datepicker  [(ngModel)]="model.void_type_start_date" id="voidtypestartdate" name="voidtypestartdate" [format]="'dd-MM-yyyy'"></kendo-datepicker>
+                 </td>
+                 <td><label for="void type end date">void type end date:</label>
+                  <kendo-datepicker  [(ngModel)]="model.void_type_end_date" id="voidtypeenddate" name="voidtypeenddate" [format]="'dd-MM-yyyy'"></kendo-datepicker>
+                 <p>{{model.void_type_end_date | date:'d/M/yyyy'}}</p>
+                </td>
+               </tr>
+             </table>
+             <button type="submit" style="margin-left:120px;margin-bottom:20px" class="btn btn-primary" (click)="addItems()">Add New Records</button> 
+          </form>   
+           <kendo-grid [data]="gridView" [scrollable]= "true" style="width:980px;margin:0 auto" [pageSize]="pageSize" [skip]="skip" [pageable]="{
+          buttonCount: buttonCount,
+          pageSizes: pageSizes
+        }" [height]="400" (pageChange)="pageChange($event)"[sortable]="{
+            allowUnsort: allowUnsort,
+            mode: multiple ? 'multiple' : 'single'
+            }" [sort]="sort"
+          (sortChange)="sortChange($event)">
+            <kendo-grid-column field="id" title="ID" editor="numeric">
+            </kendo-grid-column>
+            <kendo-grid-column field="name" title="Name">
+            </kendo-grid-column>
+            <kendo-grid-column field="location" title="Location">
+            </kendo-grid-column>
+            <kendo-grid-column field="void_type" title="Void Type">
+            </kendo-grid-column>
+            <kendo-grid-column field="void_start_date" title="Void Start Date">
+            </kendo-grid-column>
+               <kendo-grid-column field="void_end_date" title="Void End Date" >
+            </kendo-grid-column>
+               <kendo-grid-column field="void_type_start_date" title="Void Type Start Date" >
+            </kendo-grid-column>
+               <kendo-grid-column field="void_type_end_date" title="Void Type End Date" >
+                 </kendo-grid-column> 
+               <kendo-grid-command-column title="Actions" width="220">
+            <ng-template kendoGridCellTemplate let-isNew="isNew">
+                <button kendoGridEditCommand class="k-primary" (click)="edit()">Edit</button>
+                <button kendoGridRemoveCommand (click)="removeItems(i)">Remove</button>
+                <button kendoGridSaveCommand [disabled]="formGroup?.invalid">{{ isNew ? 'Add' : 'Update' }}</button>
+                <button kendoGridCancelCommand>{{ isNew ? 'Discard changes' : 'Cancel' }}</button>
+            </ng-template>
+        </kendo-grid-command-column>
+        </kendo-grid> 
+          
